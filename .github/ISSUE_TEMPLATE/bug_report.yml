@@ -1,0 +1,60 @@
+name: Bug report
+description: Something in traintrack isn't working
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for filing a bug. Please fill in enough for us to reproduce it.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you expect, and what happened instead?
+      placeholder: I ran `traintrack setup` and …
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: Exact commands, in order.
+      placeholder: |
+        1. npm i -g traintrack
+        2. traintrack setup --all --yes
+        3. open a claude session and …
+    validations:
+      required: true
+  - type: dropdown
+    id: agents
+    attributes:
+      label: Which agent CLI(s)?
+      multiple: true
+      options:
+        - Claude Code (claude)
+        - Codex (codex)
+        - Cursor
+        - OpenCode
+        - Other / not agent-specific
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: traintrack version
+      description: Output of `traintrack --version` (or the npm version installed).
+      placeholder: "2.0.0"
+    validations:
+      required: true
+  - type: input
+    id: os-node
+    attributes:
+      label: OS + Node version
+      placeholder: "macOS 15 · Node 20.11"
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / output
+      description: Relevant terminal output. Redact anything sensitive.
+      render: shell

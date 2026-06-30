@@ -1,0 +1,11 @@
+{
+  "name": "traintrack",
+  "displayName": "Traintrack",
+  "description": "Multi-agent coordination for coding agents — spawn worker agents, delegate tasks, and collect results over a local channel.",
+  "version": "0.0.1",
+  "author": {
+    "name": "OKKHALIL3"
+  },
+  "license": "Apache-2.0",
+  "hooks": "./hooks/hooks-cursor.json"
+}

@@ -1,0 +1,28 @@
+{
+  "name": "traintrack",
+  "version": "0.0.1",
+  "description": "Multi-agent coordination for coding agents — spawn worker agents, delegate tasks, and collect results over a local channel.",
+  "author": {
+    "name": "OKKHALIL3"
+  },
+  "license": "Apache-2.0",
+  "hooks": "./hooks/hooks-codex.json",
+  "interface": {
+    "displayName": "Traintrack",
+    "shortDescription": "Spawn and coordinate worker agents from a lead agent",
+    "longDescription": "Traintrack gives your agent team-lead superpowers: spawn workers, delegate tasks, collect results, and synthesize — all over a local SQLite channel. Add the MCP server manually so Codex can use the traintrack tools (see README).",
+    "developerName": "OKKHALIL3",
+    "category": "Coding",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Spawn a team to implement this feature in parallel.",
+      "Delegate the backend and frontend to separate workers."
+    ],
+    "websiteURL": "https://github.com/OKKHALIL3/traintrack",
+    "brandColor": "#6366F1"
+  }
+}

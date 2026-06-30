@@ -1,0 +1,59 @@
+{
+  "name": "traintrack",
+  "version": "2.1.0",
+  "publishConfig": { "access": "public" },
+  "description": "Multi-agent coordination for coding agents — a lead spawns worker agents, delegates tasks, and collects results over a local channel, and you drive the team from chat with /team. One command wires it into 10 agents: Claude Code, Codex, Cursor, OpenCode, Windsurf, Cline, Kiro, Zed, Continue, and GitHub Copilot CLI.",
+  "keywords": [
+    "mcp",
+    "multi-agent",
+    "claude",
+    "claude-code",
+    "codex",
+    "cursor",
+    "opencode",
+    "windsurf",
+    "cline",
+    "kiro",
+    "zed",
+    "continue",
+    "copilot",
+    "agent",
+    "coordination",
+    "a2a",
+    "orchestration",
+    "ai"
+  ],
+  "homepage": "https://traintrack.dev/",
+  "bugs": {
+    "url": "https://github.com/OKKHALIL3/traintrack/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OKKHALIL3/traintrack.git"
+  },
+  "author": "OKKHALIL3",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "exports": { ".": "./dist/index.js" },
+  "bin": { "traintrack": "dist/cli.js" },
+  "files": ["dist", "hooks"],
+  "engines": { "node": ">=18" },
+  "os": ["darwin", "linux"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json && npm run postbuild",
+    "postbuild": "chmod +x dist/cli.js",
+    "prepare": "npm run build",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": { "better-sqlite3": "^11.8.0" },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.11",
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0",
+    "eslint": "^9.0.0",
+    "prettier": "^3.4.0"
+  }
+}
