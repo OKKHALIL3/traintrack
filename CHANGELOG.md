@@ -15,7 +15,8 @@ to follow [Semantic Versioning](https://semver.org/).
 ### Added
 - **Support for 10 coding agents** (up from 4): added **Windsurf, Cline, Kiro, Zed, Continue, and GitHub Copilot CLI** alongside Claude Code, Codex, Cursor, and OpenCode. `traintrack setup` wires each one's MCP server per its *official* config docs, in the host's own format (`mcpServers` JSON, Codex TOML, OpenCode `mcp` map, Zed `context_servers`, Copilot `type:local`, Continue YAML).
 - **`/team` chat command** — drive the team from your agent's chat: `/team`, `/team spawn <task>`, `/team delegate <task>`, `/team sync`, `/team send <handle> <msg>`, `/team check`, `/team help`. Installed per-agent in the correct command format (Claude/Codex/OpenCode markdown+`$ARGUMENTS`, Cursor plain markdown, Windsurf/Cline workflows, Kiro manual steering, Zed skill, Continue prompt). Copilot CLI has no user-command surface → MCP + awareness only.
-- `scripts/verify-agents.mjs` — end-to-end proof that all 10 agents install → are idempotent → uninstall cleanly.
+- **Headless workers for Cursor and OpenCode** (alpha) — `spawn_worker` / `traintrack worker --agent` now accept `cursor` and `opencode` in addition to `claude` and `codex`. Worker support for the remaining CLIs is in development.
+- `scripts/verify-agents.mjs` — checks that all 10 agents install → are idempotent → uninstall cleanly.
 
 ## [2.0.1] — 2026-06-28
 
