@@ -26,7 +26,7 @@
 </p>
 
 > [!WARNING]
-> **Alpha.** traintrack is brand new and moving fast — commands, config formats, and the wire protocol can change between versions. Claude Code & Codex are live-verified; expect rough edges, and pin a version if you depend on it.
+> **Alpha.** traintrack is brand new and moving fast — commands, config formats, and the wire protocol can change between versions. Claude Code & Codex are beta, the rest alpha; expect rough edges, and pin a version if you depend on it.
 
 ---
 
@@ -144,20 +144,20 @@ After `setup`, every agent gets a `/team` command (in that host's own command fo
 
 | CLI | Mesh + `/team` | Headless worker | Maturity |
 | --- | --- | --- | --- |
-| Claude Code | ✅ | ✅ | **beta** · live-verified |
-| Codex | ✅ | ✅ | **beta** · live-verified |
-| Cursor | ✅ | ⏳ | alpha |
-| OpenCode | ✅ | ⏳ | alpha |
-| Windsurf | ✅ | ⏳ | alpha |
-| Cline | ✅ | ⏳ | alpha |
-| Kiro | ✅ | ⏳ | alpha |
-| Zed | ✅ | ⏳ | alpha |
-| Continue | ✅ | ⏳ | alpha |
-| GitHub Copilot CLI | ✅ MCP only | ⏳ | alpha |
+| Claude Code | ✅ | ✅ | **beta** |
+| Codex | ✅ | ✅ | **beta** |
+| Cursor | ✅ | ✅ | alpha |
+| OpenCode | ✅ | ✅ | alpha |
+| Windsurf | ✅ | in development | alpha |
+| Cline | ✅ | in development | alpha |
+| Kiro | ✅ | in development | alpha |
+| Zed | ✅ | in development | alpha |
+| Continue | ✅ | in development | alpha |
+| GitHub Copilot CLI | ✅ MCP only | in development | alpha |
 
-- **beta** (Claude Code, Codex) — the spawn → work → collect path is live-verified end-to-end with real agents (`scripts/verify-*.mjs`).
-- **alpha** (everyone else) — wired per the host's official MCP + command docs and proven to install/uninstall cleanly (`scripts/verify-agents.mjs`), but not yet tested live. Community verification welcome.
-- **Headless worker** (a lead can `spawn_worker` it): Claude Code + Codex today; the rest are on the roadmap. Copilot CLI has no user-command surface, so it gets MCP + awareness (no `/team`).
+- **beta** — Claude Code and Codex.
+- **alpha** — everyone else: `setup` wires each per the host's official MCP + command docs; they join the mesh and get `/team`.
+- **Headless workers** (a lead can `spawn_worker` them): Claude Code and Codex (beta), plus Cursor and OpenCode (alpha); the rest are in development. Copilot CLI has no user-command surface, so it gets MCP + awareness (no `/team`).
 
 ---
 
@@ -185,8 +185,8 @@ If you'd rather not run the wizard, register the MCP server yourself. Resolve th
 
 Two tiers of maturity:
 
-- **Claude Code + Codex — beta.** The engine (spawn → work → collect, multi-round delegation, live members, the peer mesh, the `/team` command, and the one-command installer) is built and **live-verified with real `claude`/`codex` agents** — see `scripts/verify-*.mjs` and [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
-- **Cursor, OpenCode, Windsurf, Cline, Kiro, Zed, Continue, Copilot — alpha.** `setup` wires each per its official MCP + command docs (proven to install/uninstall cleanly via `scripts/verify-agents.mjs`); they join the mesh and get `/team`, but they're not yet live-verified and headless-worker spawning is next.
+- **Claude Code + Codex — beta.** The full engine: spawn → work → collect, multi-round delegation, live members, the peer mesh, the `/team` command, the one-command installer, and headless workers. See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
+- **Cursor, OpenCode, Windsurf, Cline, Kiro, Zed, Continue, Copilot — alpha.** `setup` wires each per its official MCP + command docs; they join the mesh and get `/team`. Cursor and OpenCode can also be spawned as headless workers; worker support for the rest is in development.
 
 Things will change under you while it's early.
 

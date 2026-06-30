@@ -44,7 +44,7 @@ export const TOOLS = [
       properties: {
         agent: {
           type: 'string',
-          description: 'The agent type to spawn — "claude" or "codex".',
+          description: 'The agent type to spawn — "claude" or "codex" (beta), or "cursor"/"opencode" (alpha).',
         },
         role: {
           type: 'string',
@@ -121,7 +121,7 @@ export const TOOLS = [
       properties: {
         handle: { type: 'string', description: 'The unique handle to register yourself under, e.g. "reviewer".' },
         role: { type: 'string', description: 'Your role on the team, e.g. "reviewer", "qa".' },
-        agent: { type: 'string', description: 'Optional: your agent type, "claude" or "codex" (defaults to "claude").' },
+        agent: { type: 'string', description: 'Optional: your agent type (claude, codex, cursor, opencode; defaults to "claude").' },
       },
       required: ['handle', 'role'],
       additionalProperties: false,
@@ -129,7 +129,7 @@ export const TOOLS = [
   },
 ] as const
 
-const VALID_AGENTS = ['claude', 'codex'] as const
+const VALID_AGENTS = ['claude', 'codex', 'cursor', 'opencode'] as const
 
 function textResult(text: string): ToolResult {
   return { content: [{ type: 'text', text }] }

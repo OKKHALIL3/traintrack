@@ -7,7 +7,16 @@
 //
 // Ported from the abandoned Rust conductor's runtime/event_parser.rs.
 
-export type HeadlessProvider = 'claude' | 'codex'
+export type HeadlessProvider = 'claude' | 'codex' | 'cursor' | 'opencode'
+
+/** Text providers (cursor-agent, opencode) emit a plain-text reply, not an NDJSON
+ *  event stream: every stdout line is part of the answer and the turn ends when
+ *  the process exits (the turn runner supplies that signal from the exit code).
+ *  The JSON providers (claude, codex) emit a structured stream with an
+ *  authoritative in-band turn-end event. */
+export function isTextProvider(provider: HeadlessProvider): boolean {
+  return provider === 'cursor' || provider === 'opencode'
+}
 
 /** Accumulated result of a single headless agent turn. */
 export type HeadlessTurnResult = {
@@ -171,6 +180,13 @@ function applyTurnEnd(state: TurnParseState, evt: Record<string, unknown>): void
  * can forward live tokens to the UI without re-parsing.
  */
 export function reduceLine(state: TurnParseState, line: string): { delta?: string } {
+  // Text providers (cursor, opencode): no NDJSON to classify — every line is part
+  // of the plain-text reply. Accumulate raw stdout; the turn end comes from exit.
+  if (isTextProvider(state.provider)) {
+    state.streamedText += state.streamedText ? `\n${line}` : line
+    return { delta: line }
+  }
+
   const evt = parseJsonLine(line)
   if (!evt) {
     return {}

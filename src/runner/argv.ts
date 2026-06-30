@@ -17,6 +17,14 @@ function resolveCodexCommand(): string {
   return process.env.TRAINTRACK_CODEX_BIN ?? 'codex'
 }
 
+function resolveCursorCommand(): string {
+  return process.env.TRAINTRACK_CURSOR_BIN ?? 'cursor-agent'
+}
+
+function resolveOpencodeCommand(): string {
+  return process.env.TRAINTRACK_OPENCODE_BIN ?? 'opencode'
+}
+
 export type HeadlessArgv = { command: string; args: string[] }
 
 export type BuildHeadlessArgvInput = {
@@ -30,6 +38,8 @@ export type BuildHeadlessArgvInput = {
   /** Test seams: inject the resolved binary so tests don't depend on PATH resolution. */
   claudeCommand?: string
   codexCommand?: string
+  cursorCommand?: string
+  opencodeCommand?: string
 }
 
 // claude print mode + the JSON event stream (stream-json requires --verbose).
@@ -45,6 +55,29 @@ export function buildHeadlessArgv(input: BuildHeadlessArgvInput): HeadlessArgv {
     if (resumeSessionId) {
       args.push('--resume', resumeSessionId)
     }
+    if (model) {
+      args.push('--model', model)
+    }
+    args.push(prompt)
+    return { command, args }
+  }
+
+  if (agent === 'cursor') {
+    // cursor-agent headless (alpha): one-shot print, plain-text reply, unattended
+    // (--force --trust so it never waits on an approval prompt).
+    const command = input.cursorCommand ?? resolveCursorCommand()
+    const args = ['-p', '--output-format', 'text', '--force', '--trust']
+    if (model) {
+      args.push('--model', model)
+    }
+    args.push(prompt)
+    return { command, args }
+  }
+
+  if (agent === 'opencode') {
+    // opencode headless (alpha): `opencode run <prompt>` prints the reply on stdout.
+    const command = input.opencodeCommand ?? resolveOpencodeCommand()
+    const args = ['run']
     if (model) {
       args.push('--model', model)
     }

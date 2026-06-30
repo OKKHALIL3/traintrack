@@ -73,4 +73,36 @@ describe('buildHeadlessArgv', () => {
     })
     expect(off.args).not.toContain('--dangerously-bypass-approvals-and-sandbox')
   })
+
+  it('builds a cursor argv: print + text output + unattended, prompt last', () => {
+    const { command, args } = buildHeadlessArgv({
+      agent: 'cursor',
+      prompt: 'render it',
+      cursorCommand: '/bin/cursor-agent'
+    })
+    expect(command).toBe('/bin/cursor-agent')
+    expect(args).toEqual(['-p', '--output-format', 'text', '--force', '--trust', 'render it'])
+    expect(args.at(-1)).toBe('render it')
+  })
+
+  it('cursor argv adds --model when given', () => {
+    const { args } = buildHeadlessArgv({
+      agent: 'cursor',
+      prompt: 'go',
+      model: 'composer-2.5',
+      cursorCommand: '/bin/cursor-agent'
+    })
+    expect(args).toEqual(['-p', '--output-format', 'text', '--force', '--trust', '--model', 'composer-2.5', 'go'])
+  })
+
+  it('builds an opencode argv: `run <prompt>`', () => {
+    const { command, args } = buildHeadlessArgv({
+      agent: 'opencode',
+      prompt: 'fix the bug',
+      opencodeCommand: '/bin/opencode'
+    })
+    expect(command).toBe('/bin/opencode')
+    expect(args).toEqual(['run', 'fix the bug'])
+    expect(args.at(-1)).toBe('fix the bug')
+  })
 })

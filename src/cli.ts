@@ -26,8 +26,8 @@ const USAGE = `Usage:
   traintrack team [--room <name>] [--channel <path>]
   traintrack inbox --handle <handle> [--room <name>] [--channel <path>]
   traintrack init [--room <name>] [--channel <path>]
-  traintrack worker --agent <claude|codex> --role <role> --handle <handle> [--channel <path>]
-  traintrack join --handle <handle> --role <role> [--agent <claude|codex>] [--room <name>] [--channel <path>]`
+  traintrack worker --agent <claude|codex|cursor|opencode> --role <role> --handle <handle> [--channel <path>]
+  traintrack join --handle <handle> --role <role> [--agent <claude|codex|cursor|opencode>] [--room <name>] [--channel <path>]`
 
 /** Read the value following a `--name` flag in argv, or undefined if absent. */
 function flag(args: string[], name: string): string | undefined {
@@ -133,8 +133,8 @@ async function main(argv: string[]): Promise<void> {
 
   if (command === 'worker') {
     const agentRaw = flag(args, '--agent')
-    if (agentRaw !== 'claude' && agentRaw !== 'codex') {
-      fail('worker: --agent must be "claude" or "codex"')
+    if (agentRaw !== 'claude' && agentRaw !== 'codex' && agentRaw !== 'cursor' && agentRaw !== 'opencode') {
+      fail('worker: --agent must be one of: claude, codex, cursor, opencode')
     }
     const agent: HeadlessProvider = agentRaw
     const role = flag(args, '--role')
@@ -152,8 +152,8 @@ async function main(argv: string[]): Promise<void> {
 
   if (command === 'join') {
     const agentRaw = flag(args, '--agent') ?? 'codex'
-    if (agentRaw !== 'claude' && agentRaw !== 'codex') {
-      fail('join: --agent must be "claude" or "codex"')
+    if (agentRaw !== 'claude' && agentRaw !== 'codex' && agentRaw !== 'cursor' && agentRaw !== 'opencode') {
+      fail('join: --agent must be one of: claude, codex, cursor, opencode')
     }
     const agent: HeadlessProvider = agentRaw
     const role = flag(args, '--role')

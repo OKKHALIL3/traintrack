@@ -9,6 +9,7 @@ import {
   createTurnParseState,
   reduceLine,
   finalizeTurn,
+  isTextProvider,
   type HeadlessProvider,
   type HeadlessTurnResult
 } from './event-parser.js'
@@ -111,7 +112,14 @@ export function runHeadlessTurn(input: RunHeadlessTurnInput): Promise<HeadlessTu
       if (stdoutBuf.trim()) {
         consumeLine(stdoutBuf)
       }
-      resolve({ ...finalizeTurn(state), exitCode: code, stderr })
+      const result = finalizeTurn(state)
+      // Text providers (cursor/opencode) have no in-band turn-end event — the
+      // process exiting IS the turn end, so success/failure comes from the exit code.
+      if (isTextProvider(provider)) {
+        result.ended = code === 0
+        result.isError = code !== 0
+      }
+      resolve({ ...result, exitCode: code, stderr })
     })
   })
 }
