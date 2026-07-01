@@ -25,10 +25,6 @@
   <i>No daemon · no wrapper command · no new app · just a SQLite file at your repo root.</i>
 </p>
 
-<p align="center">
-  <img src="assets/demo.gif" alt="traintrack demo — one command wires your agents; they share a team and hand off context, cross-vendor" width="820">
-</p>
-
 > [!WARNING]
 > **Alpha.** traintrack is brand new and moving fast — commands, config formats, and the wire protocol can change between versions. Claude Code & Codex are beta, the rest alpha; expect rough edges, and pin a version if you depend on it.
 
