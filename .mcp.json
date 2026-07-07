@@ -1,0 +1,9 @@
+{
+  "_comment": "This manifest is ONLY valid when traintrack is installed via Claude Code's plugin store, which sets ${CLAUDE_PLUGIN_ROOT} and ships a built dist/. It is NOT used by the npm install path — `traintrack setup` writes an absolute node + dist/mcp-server.js path into your harness config instead. It is intentionally excluded from the npm package files[].",
+  "mcpServers": {
+    "traintrack": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/dist/mcp-server.js"]
+    }
+  }
+}

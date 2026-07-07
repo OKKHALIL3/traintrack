@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# Codex SessionStart hook for traintrack plugin.
+# Injects "you are the team lead" awareness so the model knows it can spawn,
+# delegate to, and collect from a team of worker agents via the traintrack MCP tools.
+
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+PLUGIN_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
+
+traintrack_content="You have the \`traintrack\` multi-agent coordination tools (list_team, spawn_worker, delegate_task, await_results, send_message, check_messages). You are the team LEAD. When the user asks you to build something sizable, you can spawn worker agents to parallelize: spawn_worker(agent, role, task) for each part, then await_results() to collect their work, then synthesize. Use them when delegation helps; do simple tasks yourself. You can run MULTIPLE rounds: spawn or delegate to teammates by role, call await_results to collect their replies, then delegate follow-up tasks based on what came back and collect again, before synthesizing your final answer. Give each teammate a clear role and keep the team small. If a human adds your session to an EXISTING team (rather than you leading), call join_team(handle, role) first, then check_messages — teammates may message you at any time."
+
+escape_for_json() {
+    local s="$1"
+    s="${s//\\/\\\\}"
+    s="${s//\"/\\\"}"
+    s="${s//$'\n'/\\n}"
+    s="${s//$'\r'/\\r}"
+    s="${s//$'\t'/\\t}"
+    printf '%s' "$s"
+}
+
+traintrack_escaped=$(escape_for_json "$traintrack_content")
+session_context="<EXTREMELY_IMPORTANT>\n${traintrack_escaped}\n</EXTREMELY_IMPORTANT>"
+
+printf '{\n  "hookSpecificOutput": {\n    "hookEventName": "SessionStart",\n    "additionalContext": "%s"\n  }\n}\n' "$session_context" | cat
+
+exit 0

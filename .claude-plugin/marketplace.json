@@ -1,0 +1,13 @@
+{
+  "name": "traintrack-dev",
+  "owner": {
+    "name": "OKKHALIL3"
+  },
+  "plugins": [
+    {
+      "name": "traintrack",
+      "source": "./",
+      "version": "0.0.1"
+    }
+  ]
+}

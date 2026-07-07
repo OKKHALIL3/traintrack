@@ -1,0 +1,28 @@
+name: Feature request
+description: Suggest an idea or a new agent CLI to support
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem are you trying to solve?
+      description: The motivation, not just the solution.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: What would you like traintrack to do?
+    validations:
+      required: true
+  - type: input
+    id: cli
+    attributes:
+      label: New agent CLI to support? (optional)
+      description: If you're requesting support for a coding-agent CLI, name it and link its docs.
+      placeholder: "e.g. aider — https://aider.chat"
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
